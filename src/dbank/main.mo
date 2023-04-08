@@ -1,5 +1,11 @@
-actor {
-  public func greet(name : Text) : async Text {
-    return "Hello, " # name # "!";
-  };
+import Debug "mo:base/Debug";
+
+// creating a new canister
+actor DBank {
+    var currentValue = 300;
+    currentValue := 100; // updating currentValue
+
+    let id = 2453374858362991; // it's like `const` in JS
+
+    Debug.print(debug_show (currentValue));
 };
