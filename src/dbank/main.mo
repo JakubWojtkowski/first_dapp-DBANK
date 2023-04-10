@@ -3,8 +3,8 @@ import Nat "mo:base/Nat";
 
 // creating a new canister
 actor DBank {
-    var currentValue : Nat = 300;
-    currentValue := 100; // updating currentValue
+    stable var currentValue : Nat = 300; // with 'stable' keyword it will be persisted across any sort of updates etc. / no db is needed / it's saved in the state
+    // currentValue := 100; // updating currentValue
 
     let id = 2453374858362991; // it's like `const` in JS
 
