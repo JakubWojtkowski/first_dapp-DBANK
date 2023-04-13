@@ -6,14 +6,15 @@ import Float "mo:base/Float";
 // creating a new canister
 actor DBank {
     stable var currentValue : Float = 300; // with 'stable' keyword it will be persisted across any sort of updates etc. / no db is needed / it's saved in the state
-    // currentValue := 300; // updating currentValue
+    currentValue := 300; // updating currentValue
+   Debug.print(debug_show (currentValue));
 
     let id = 2453374858362991; // it's like `const` in JS
 
     stable var startTime = Time.now();
-    // startTime := Time.now();
+    startTime := Time.now();
 
-    Debug.print(debug_show (currentValue));
+    Debug.print(debug_show (startTime));
 
     public func topUp(amount : Float) {
         currentValue += amount;
