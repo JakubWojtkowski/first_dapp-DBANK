@@ -1,36 +1,39 @@
-import {dbank} from "../../declarations/dbank";
+import { dbank } from "../../declarations/dbank";
 
-window.addEventListener('load', async () => {
-    // console.log("Finished loading");
-    const currentAmount = await dbank.checkBalance();
-    document.getElementById('value').innerText = currentAmount.toFixed(2);
+window.addEventListener("load", async () => {
+  // console.log("Finished loading");
+  update();
 });
 
-document.querySelector('form').addEventListener("submit", async (event) => {
-    event.preventDefault();
-    
-    const btn = event.target.querySelector('#submit-btn');
+document.querySelector("form").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const inputAmount = document.getElementById('input-amount').value;
-    const withdrawalAmount = document.getElementById('withdrawal-amount').value;
+  const btn = event.target.querySelector("#submit-btn");
 
-    btn.setAttribute("disabled", true);
+  const inputAmount = document.getElementById("input-amount").value;
+  const withdrawalAmount = document.getElementById("withdrawal-amount").value;
 
-    if (inputAmount != 0) {
-        await dbank.topUp(parseFloat(inputAmount));
-    }
-    
-    if (withdrawalAmount != 0) {
-        await dbank.withdrawl(parseFloat(withdrawalAmount));
-    }
-    
-    await dbank.compound();
+  btn.setAttribute("disabled", true);
 
-    const currentAmount = await dbank.checkBalance();
-    document.getElementById('value').innerText = currentAmount.toFixed(2);
+  if (inputAmount.length != 0) {
+    await dbank.topUp(parseFloat(inputAmount));
+  }
 
-    document.getElementById('input-amount').value = "";
-    document.getElementById('withdrawal-amount').value = "";
+  if (withdrawalAmount.length != 0) {
+    await dbank.withdrawl(parseFloat(withdrawalAmount));
+  }
 
-    btn.removeAttribute("disabled");
+  await dbank.compound();
+
+  update();
+
+  document.getElementById("input-amount").value = "";
+  document.getElementById("withdrawal-amount").value = "";
+
+  btn.removeAttribute("disabled");
 });
+
+async function update() {
+  const currentAmount = await dbank.checkBalance();
+  document.getElementById("value").innerText = currentAmount.toFixed(2);
+}
